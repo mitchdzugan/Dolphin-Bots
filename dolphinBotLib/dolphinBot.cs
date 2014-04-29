@@ -108,7 +108,7 @@ namespace dolphinBotLib
             StreamWriter write = new StreamWriter(tcpclnt.GetStream());
 
             GCPadStatus[] PreviousPads = new GCPadStatus[4];
-            bool[] firsts = new bool[4];
+            bool[] firsts = new bool[4] { true, true, true, true };
 
             GCPadStatus CurrentPad;
             string packet;
