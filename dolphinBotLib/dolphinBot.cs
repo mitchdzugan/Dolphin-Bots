@@ -84,6 +84,28 @@ namespace dolphinBotLib
                 C_Vert.ToString() + ";" + L_Analog.ToString() + ";" +
                 R_Analog.ToString() + ";0;0\n";
         }
+
+        public void clearPad()
+        {
+            A = false;
+            B = false;
+            X = false;
+            Y = false;
+            Z = false;
+            Start = false;
+            L = false;
+            R = false;
+            Dpad_Down = false;
+            Dpad_Left = false;
+            Dpad_Up = false;
+            Dpad_Right = false;
+            Joy_Horiz = 128;
+            Joy_Vert = 128;
+            C_Horiz = 128;
+            C_Vert = 128;
+            L_Analog = 0;
+            R_Analog = 0;
+        }
     }
     public class dolphinBot
     {

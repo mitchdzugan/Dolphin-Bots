@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dolphinBotLib", "dolphinBot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SheikTechChaseBot", "SheikTechChaseBot\SheikTechChaseBot.csproj", "{CE014AA7-5262-4609-9314-558694487E73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WestballzSim", "WestballzSim\WestballzSim.csproj", "{50CDADD7-C347-4C35-A79C-345C6E53817F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CE014AA7-5262-4609-9314-558694487E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE014AA7-5262-4609-9314-558694487E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE014AA7-5262-4609-9314-558694487E73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50CDADD7-C347-4C35-A79C-345C6E53817F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CDADD7-C347-4C35-A79C-345C6E53817F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CDADD7-C347-4C35-A79C-345C6E53817F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CDADD7-C347-4C35-A79C-345C6E53817F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -23,12 +23,17 @@ namespace SheikTechChaseBot
 
         public static void MyGCPadCallback(GCPadStatus CurrentPad, GCPadStatus PreviousPad, StreamWriter write)
         {
+            /* Use A + DPAD_DOWN to clear all inputs from stream. Resets the bot in case
+             * it somehow gets into a whack state */
             if (CurrentPad.A && CurrentPad.Dpad_Down && (!PreviousPad.A || !PreviousPad.Dpad_Down))
             {
                 Console.WriteLine("CLEAR");
                 write.WriteLine("CLEAR");
                 write.Flush();
             }
+
+            /* Use B + DPAD_DOWN to send START to controller 2 so that you cam get
+             * through end game screens */
             if (CurrentPad.B && CurrentPad.Dpad_Down && (!PreviousPad.B || !PreviousPad.Dpad_Down))
             {
                 Console.WriteLine("PAUSE");
@@ -42,6 +47,7 @@ namespace SheikTechChaseBot
                 switch (currentState)
                 {
                     case Nothing:
+                        /* Look for grab with Z or R/L + A */
                         if ((CurrentPad.Z && !PreviousPad.Z) || (CurrentPad.A && (CurrentPad.L || CurrentPad.R) && !PreviousPad.A))
                         {
                             currentState = Grabbed;
@@ -50,16 +56,16 @@ namespace SheikTechChaseBot
                         }
                         break;
                     case Grabbed:
-                        if (CurrentPad.C_Horiz < 64 || CurrentPad.C_Horiz > 191 || CurrentPad.C_Vert > 191)
-                        {
-                            currentState = Nothing;
-                        }
-                        else if ((CurrentPad.Joy_Horiz < 64 && !(joyXonGrab < 64)) ||
+                        /* If a not dthrow reset back to neutral */
+                        if (CurrentPad.C_Horiz < 64 || 
+                            CurrentPad.C_Horiz > 191 || CurrentPad.C_Vert > 191 ||
+                            (CurrentPad.Joy_Horiz < 64 && !(joyXonGrab < 64)) ||
                             (CurrentPad.Joy_Horiz > 191 && !(joyXonGrab > 191)) ||
                             (CurrentPad.Joy_Vert > 191 && !(joyYonGrab > 191)))
                         {
                             currentState = Nothing;
                         }
+                        /* If dthrow is found, begin random tech reactions */
                         else if ((CurrentPad.Joy_Vert < 64 && !(joyYonGrab < 64)) || CurrentPad.C_Vert < 64)
                         {
                             currentState = Nothing;
@@ -101,10 +107,18 @@ namespace SheikTechChaseBot
                                     Console.WriteLine("TECH IN PLACE");
                                 if (ps.Joy_Horiz == 255)
                                     Console.WriteLine("TECH RIGHT");
+                                for (int i = dthrow_frame_start + 50; i < dthrow_frame_start + 71; i++)
+                                {
+                                    ps.Frame = i;
+                                    write.WriteLine(ps.ToString());
+                                    write.Flush();
+                                }
 
                                 /* SPAM SPOTDODGE */
+                                ps.L = true;
+                                ps.Joy_Horiz = 128;
                                 ps.C_Vert = 0;
-                                for (int i = dthrow_frame_start + 50; i < dthrow_frame_start + 110; i++)
+                                for (int i = dthrow_frame_start + 71; i < dthrow_frame_start + 110; i++)
                                 {
                                     ps.Frame = i;
                                     write.WriteLine(ps.ToString());
