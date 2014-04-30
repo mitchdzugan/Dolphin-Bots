@@ -106,6 +106,18 @@ namespace dolphinBotLib
             L_Analog = 0;
             R_Analog = 0;
         }
+
+        public static bool samePad(GCPadStatus a, GCPadStatus b)
+        {
+            string[] asplit = a.ToString().Split(new char[1] { ';' });
+            string[] bsplit = b.ToString().Split(new char[1] { ';' });
+            for (int i = 1; i < asplit.Length; i++)
+            {
+                if (asplit[i] != bsplit[i])
+                    return false;
+            }
+            return true;
+        }
     }
     public class dolphinBot
     {
@@ -139,6 +151,17 @@ namespace dolphinBotLib
             {
                 packet = read.ReadLine();
                 CurrentPad = new GCPadStatus(packet);
+                if (!firsts[1] && CurrentPad.ID == 1 && CurrentPad.Frame == PreviousPads[1].Frame && !GCPadStatus.samePad(CurrentPad, PreviousPads[1]))
+                {
+                    Console.WriteLine("Hmmm");
+                    Console.WriteLine(CurrentPad);
+                    Console.WriteLine(PreviousPads[1]);
+                    Console.WriteLine("");
+                }
+                if (!firsts[1] && CurrentPad.ID == 1 && CurrentPad.Frame != PreviousPads[1].Frame && !GCPadStatus.samePad(CurrentPad, PreviousPads[1]))
+                {
+                    Console.WriteLine(CurrentPad);
+                }
                 for (int i=0; i<4; i++)
                 {
                     if (!firsts[i] && CurrentPad.ID == i && CurrentPad.Frame != PreviousPads[i].Frame)

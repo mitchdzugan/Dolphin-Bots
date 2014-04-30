@@ -57,46 +57,60 @@ namespace WestballzSim
                 ps.Joy_Vert = 0;
                 ps.B = true;
                 write.WriteLine(ps.ToString());
+                write.Flush();
 
                 ps.Frame = f + 7;
                 ps.clearPad();
                 ps.Y = true;
                 write.WriteLine(ps.ToString());
+                write.Flush();
                 if (rand.Next(2) == 0)
                 {
                     /* Westballz double shine */
+                    Console.WriteLine("Westballz double shine");
                     ps.Frame = f + 13;
                     ps.clearPad();
                     ps.Joy_Vert = 0;
                     ps.B = true;
                     write.WriteLine(ps.ToString());
+                    write.Flush();
 
                     ps.Frame = f + 20;
                     ps.clearPad();
                     ps.Y = true;
+                    write.WriteLine(ps.ToString());
+                    write.Flush();
+
+                    ps.Frame = f + 21;
+                    ps.clearPad();
                     ps.Joy_Vert = 0;
                     ps.R = true;
                     write.WriteLine(ps.ToString());
+                    write.Flush();
 
                     nextSequenceStartFrame = f + 33;
                 }
                 else
                 {
                     /* Late Dair */
+                    Console.WriteLine("Dair Shine");
                     ps.Frame = f + 20;
                     ps.clearPad();
                     ps.C_Vert = 0;
                     write.WriteLine(ps.ToString());
+                    write.Flush();
 
                     ps.Frame = f + 25;
                     ps.clearPad();
                     ps.Joy_Vert = 0;
                     write.WriteLine(ps.ToString());
+                    write.Flush();
 
                     ps.Frame = f + 33;
                     ps.clearPad();
                     ps.L_Analog = 200;
                     write.WriteLine(ps.ToString());
+                    write.Flush();
 
                     nextSequenceStartFrame = f + 44;
                 }
