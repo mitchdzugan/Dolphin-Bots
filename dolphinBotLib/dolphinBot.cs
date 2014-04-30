@@ -151,17 +151,6 @@ namespace dolphinBotLib
             {
                 packet = read.ReadLine();
                 CurrentPad = new GCPadStatus(packet);
-                if (!firsts[1] && CurrentPad.ID == 1 && CurrentPad.Frame == PreviousPads[1].Frame && !GCPadStatus.samePad(CurrentPad, PreviousPads[1]))
-                {
-                    Console.WriteLine("Hmmm");
-                    Console.WriteLine(CurrentPad);
-                    Console.WriteLine(PreviousPads[1]);
-                    Console.WriteLine("");
-                }
-                if (!firsts[1] && CurrentPad.ID == 1 && CurrentPad.Frame != PreviousPads[1].Frame && !GCPadStatus.samePad(CurrentPad, PreviousPads[1]))
-                {
-                    Console.WriteLine(CurrentPad);
-                }
                 for (int i=0; i<4; i++)
                 {
                     if (!firsts[i] && CurrentPad.ID == i && CurrentPad.Frame != PreviousPads[i].Frame)

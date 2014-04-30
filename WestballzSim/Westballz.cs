@@ -25,6 +25,28 @@ namespace WestballzSim
                 write.Flush();
             }
 
+            /* Use B + DPAD_DOWN to send START to controller 2 so that you cam get
+             * through end game screens */
+            if (CurrentPad.B && CurrentPad.Dpad_Down && (!PreviousPad.B || !PreviousPad.Dpad_Down))
+            {
+                Console.WriteLine("PAUSE");
+                GCPadStatus startPress = new GCPadStatus(CurrentPad.Frame + 5, 1);
+                startPress.Start = true;
+                write.WriteLine(startPress.ToString());
+                write.Flush();
+            }
+
+            /* Use X + DPAD_DOWN to send START to controller 3 so that you cam get
+             * through end game screens */
+            if (CurrentPad.X && CurrentPad.Dpad_Down && (!PreviousPad.X || !PreviousPad.Dpad_Down))
+            {
+                Console.WriteLine("PAUSE");
+                GCPadStatus startPress = new GCPadStatus(CurrentPad.Frame + 10, 2);
+                startPress.Start = true;
+                write.WriteLine(startPress.ToString());
+                write.Flush();
+            }
+
             /* Use L/R + DPAD_DOWN to begin (or cancel if already started) shield
              * pressure sequence */
             if (CurrentPad.Dpad_Down && !PreviousPad.Dpad_Down && (CurrentPad.L || CurrentPad.R))
@@ -42,9 +64,9 @@ namespace WestballzSim
                     write.Flush();
                 }
             }
-            else if (CurrentPad.Frame == nextSequenceStartFrame && currentlyPressuring)
+            else if (CurrentPad.Frame == nextSequenceStartFrame - 5 && currentlyPressuring)
             {
-                int f = CurrentPad.Frame;
+                int f = nextSequenceStartFrame;
                 GCPadStatus ps = new GCPadStatus(f, 1);
                 /* Randomly select between two pressure options:
                  *      Westballz double shine
@@ -84,6 +106,7 @@ namespace WestballzSim
                     ps.Frame = f + 21;
                     ps.clearPad();
                     ps.Joy_Vert = 0;
+                    ps.Joy_Horiz = 200;
                     ps.R = true;
                     write.WriteLine(ps.ToString());
                     write.Flush();
@@ -93,26 +116,35 @@ namespace WestballzSim
                 else
                 {
                     /* Late Dair */
+                    ps.clearPad();
+                    ps.Joy_Horiz = 180;
+                    for (int i = f + 8; i < f + 18; i++)
+                    {
+                        ps.Frame = i;
+                        write.WriteLine(ps.ToString());
+                        write.Flush();
+                    }
+
                     Console.WriteLine("Dair Shine");
-                    ps.Frame = f + 20;
+                    ps.Frame = f + 26;
                     ps.clearPad();
                     ps.C_Vert = 0;
                     write.WriteLine(ps.ToString());
                     write.Flush();
 
-                    ps.Frame = f + 25;
+                    ps.Frame = f + 27;
                     ps.clearPad();
                     ps.Joy_Vert = 0;
                     write.WriteLine(ps.ToString());
                     write.Flush();
 
-                    ps.Frame = f + 33;
+                    ps.Frame = f + 30;
                     ps.clearPad();
-                    ps.L_Analog = 200;
+                    ps.Z = true;
                     write.WriteLine(ps.ToString());
                     write.Flush();
 
-                    nextSequenceStartFrame = f + 44;
+                    nextSequenceStartFrame = f + 46;
                 }
             }
         }
