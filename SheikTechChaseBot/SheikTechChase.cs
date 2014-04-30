@@ -114,13 +114,14 @@ namespace SheikTechChaseBot
                                     write.Flush();
                                 }
 
-                                /* SPAM SPOTDODGE */
-                                ps.L = true;
+                                /* SPAM SHINE */
+                                ps.clearPad();
                                 ps.Joy_Horiz = 128;
-                                ps.C_Vert = 0;
+                                ps.Joy_Vert = 0;
                                 for (int i = dthrow_frame_start + 71; i < dthrow_frame_start + 110; i++)
                                 {
                                     ps.Frame = i;
+                                    ps.B = i % 2 == 0;
                                     write.WriteLine(ps.ToString());
                                     write.Flush();
                                 }
